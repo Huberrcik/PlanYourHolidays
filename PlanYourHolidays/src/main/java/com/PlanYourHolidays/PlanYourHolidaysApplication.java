@@ -7,8 +7,10 @@ import org.springframework.data.rest.core.event.ValidatingRepositoryEventListene
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@RestController
 public class PlanYourHolidaysApplication implements RepositoryRestConfigurer{
 
 	public static void main(String[] args) {
@@ -22,7 +24,7 @@ public class PlanYourHolidaysApplication implements RepositoryRestConfigurer{
 		validatingListener.addValidator("beforeSave",validator());
 	}
 	@Bean
-	private Validator validator() {
+	protected Validator validator() {
 		return new LocalValidatorFactoryBean();
 	}
 }
