@@ -1,6 +1,8 @@
 package com.PlanYourHolidays.destination;
 
+import com.PlanYourHolidays.scraping.GettingFlights;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -35,6 +37,10 @@ public class DestinationController {
                                   @RequestParam(required = false) LocalDate dateOfFinish){
         destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish);
 
+    }
+    @GetMapping("/flightsData")
+    public ResponseEntity<?> callFlightsEndpoint(){
+        return ResponseEntity.ok(GettingFlights.getFlightData());
     }
 
 }
