@@ -3,6 +3,7 @@ package com.PlanYourHolidays.destination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 @RestController
 @RequestMapping(path="api/v1/destination")
@@ -21,6 +22,19 @@ public class DestinationController {
     @PostMapping
     public void searchNewDestination(@RequestBody Destination destination){
         destinationService.addNewDestination(destination);
+    }
+    @DeleteMapping(path = "{destinationId}")
+    public void deleteDestination(@PathVariable("destinationId") Long destinationId){
+        destinationService.deleteDestination(destinationId);
+    }
+    @PutMapping(path = "{destinationId}")
+    public void updateDestination(@PathVariable("destinationId") Long destinationId,
+                                  @RequestParam(required = false) String startingPoint,
+                                  @RequestParam(required = false) String destinationPoint,
+                                  @RequestParam(required = false) LocalDate dateOfStart,
+                                  @RequestParam(required = false) LocalDate dateOfFinish){
+        destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish);
+
     }
 
 }

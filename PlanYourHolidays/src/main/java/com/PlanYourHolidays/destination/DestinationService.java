@@ -1,5 +1,6 @@
 package com.PlanYourHolidays.destination;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -31,5 +33,45 @@ public class DestinationService {
             throw new IllegalStateException("id already exists in db");
         }
         System.out.println(destination);
+    }
+
+    public void deleteDestination(Long destinationId) {
+        boolean exists = destinationRepository.existsById(destinationId);
+
+        if(!exists){
+            throw new IllegalStateException("Destination with id " + destinationId + " does not exists");
+        }
+        destinationRepository.deleteById(destinationId);
+    }
+
+    @Transactional
+    public void upadteDestination(Long destinationId,
+                                  String startPoint,
+                                  String destinationPoint,
+                                  LocalDate dateOfStart,
+                                  LocalDate dateOfFinish) {
+        Destination destination = destinationRepository.findDestinationById(destinationId).
+                orElseThrow(() -> new IllegalStateException(
+                "Destination with id " + destinationId + " does not exists"
+        ));
+
+
+        if (startPoint != null && !startPoint.isEmpty() && !Objects.equals(destination.getStartPoint(), startPoint)){
+            destination.setStartPoint(startPoint);
+        }
+
+        if (destinationPoint != null && !destinationPoint.isEmpty() && !Objects.equals(destination.getDestinationPoint(), destinationPoint)){
+            destination.setStartPoint(startPoint);
+        }
+
+        if (dateOfStart != null && !Objects.equals(destination.getDateOfStart(), dateOfStart)){
+            destination.setDateOfStart(dateOfStart);
+        }
+
+        if (dateOfFinish != null && !Objects.equals(destination.getDateOfFinish(), dateOfFinish)){
+            destination.setDateOfFinish(dateOfFinish);
+        }
+
+
     }
 }

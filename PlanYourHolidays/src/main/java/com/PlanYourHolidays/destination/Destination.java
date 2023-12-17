@@ -26,6 +26,21 @@ public class Destination {
     private String destinationPoint;
     private LocalDate dateOfStart;
     private LocalDate dateOfFinish;
+    private float flightsPrice;
+    private float sleepPrice;
+
+    @Override
+    public String toString() {
+        return "Destination{" +
+                "Id=" + Id +
+                ", startPoint='" + startPoint + '\'' +
+                ", destinationPoint='" + destinationPoint + '\'' +
+                ", dateOfStart=" + dateOfStart +
+                ", dateOfFinish=" + dateOfFinish +
+                ", flightsPrice=" + flightsPrice +
+                ", sleepPrice=" + sleepPrice +
+                '}';
+    }
 
     public Destination() {
     }
@@ -34,12 +49,16 @@ public class Destination {
                        String startPoint,
                        String destinationPoint,
                        LocalDate dateOfStart,
-                       LocalDate dateOfFinish) {
+                       LocalDate dateOfFinish,
+                       float flightsPrice,
+                       float sleepPrice) {
         this.Id = id;
         this.startPoint = startPoint;
         this.destinationPoint = destinationPoint;
         this.dateOfStart = dateOfStart;
         this.dateOfFinish = dateOfFinish;
+        this.flightsPrice = flightsPrice;
+        this.sleepPrice = sleepPrice;
     }
 
     public Destination(String startPoint,
@@ -50,16 +69,5 @@ public class Destination {
         this.destinationPoint = destinationPoint;
         this.dateOfStart = dateOfStart;
         this.dateOfFinish = dateOfFinish;
-    }
-
-    @Override
-    public String toString() {
-        return "Destination{" +
-                "id=" + Id +
-                ", startPoint='" + startPoint + '\'' +
-                ", destinationPoint='" + destinationPoint + '\'' +
-                ", dateOfStart=" + dateOfStart +
-                ", dateOfFinish=" + dateOfFinish +
-                '}';
     }
 }
