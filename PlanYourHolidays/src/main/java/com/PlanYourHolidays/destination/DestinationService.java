@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,7 +48,9 @@ public class DestinationService {
                                   String startPoint,
                                   String destinationPoint,
                                   LocalDate dateOfStart,
-                                  LocalDate dateOfFinish) {
+                                  LocalDate dateOfFinish,
+                                  float flightsPrice,
+                                  float sleepPrice) {
         Destination destination = destinationRepository.findDestinationById(destinationId).
                 orElseThrow(() -> new IllegalStateException(
                 "Destination with id " + destinationId + " does not exists"
@@ -70,6 +71,14 @@ public class DestinationService {
 
         if (dateOfFinish != null && !Objects.equals(destination.getDateOfFinish(), dateOfFinish)){
             destination.setDateOfFinish(dateOfFinish);
+        }
+
+        if (flightsPrice != 0 && !Objects.equals(destination.getFlightsPrice(), flightsPrice)){
+            destination.setFlightsPrice(flightsPrice);
+        }
+
+        if (sleepPrice != 0 && !Objects.equals(destination.getSleepPrice(), sleepPrice)){
+            destination.setSleepPrice(sleepPrice);
         }
 
 

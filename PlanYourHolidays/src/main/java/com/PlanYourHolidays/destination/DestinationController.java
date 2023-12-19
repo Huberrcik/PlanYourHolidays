@@ -1,6 +1,6 @@
 package com.PlanYourHolidays.destination;
 
-import com.PlanYourHolidays.scraping.GettingFlights;
+import com.PlanYourHolidays.gettingData.GettingFlights;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,12 +34,14 @@ public class DestinationController {
                                   @RequestParam(required = false) String startingPoint,
                                   @RequestParam(required = false) String destinationPoint,
                                   @RequestParam(required = false) LocalDate dateOfStart,
-                                  @RequestParam(required = false) LocalDate dateOfFinish){
-        destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish);
+                                  @RequestParam(required = false) LocalDate dateOfFinish,
+                                  @RequestParam(required = false) float flightsPrice,
+                                  @RequestParam(required = false) float sleepPrice) {
+        destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice);
 
     }
     @GetMapping("/flightsData")
-    public ResponseEntity<?> callFlightsEndpoint(){
+    public ResponseEntity<?> callFlightsEndpoint() {
         return ResponseEntity.ok(GettingFlights.getFlightData());
     }
 

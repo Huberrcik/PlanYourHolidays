@@ -1,4 +1,4 @@
-package com.PlanYourHolidays.scraping;
+package com.PlanYourHolidays.gettingData;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
