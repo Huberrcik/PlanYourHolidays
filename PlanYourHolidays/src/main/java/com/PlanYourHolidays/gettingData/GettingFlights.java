@@ -7,25 +7,22 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Base64;
+
+import static com.PlanYourHolidays.gettingData.Authorization.getAuth;
 
 @Service
 @Slf4j
 public class GettingFlights {
     private static final String URL = "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=";
 
-    private static final String authURL = "https://test.api.amadeus.com/v1/security/oauth2/token";
 
-    private static final String client_id = "C9afyYPRGXTrlBpp0BtzvlDNq8RAuj87";
-    private static final String client_secret = "cK8ic0z4woJAPcUU";
+
+
     static String flightTo = "SYD";
     private static final String destinationURL = "&destinationLocationCode=";
     static String flightFrom = "BKK";
@@ -38,29 +35,6 @@ public class GettingFlights {
     private static final String nonStopURL = "&nonStop=";
     static boolean nonStop = false;
 
-    public static String getAuth() throws JsonProcessingException {
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        MultiValueMap<String, String> map= new LinkedMultiValueMap<>();
-        map.add("grant_type", "client_credentials");
-
-        String credentials = client_id + ":" + client_secret;
-        byte[] credentialsBytes = credentials.getBytes(StandardCharsets.UTF_8);
-        String encodedCredentials = Base64.getEncoder().encodeToString(credentialsBytes);
-        headers.add("Authorization", "Basic " + encodedCredentials);
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(authURL, request, String.class);
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(response.getBody());
-
-        return root.get("access_token").asText();
-    }
 
     public static ResponseEntity<String> getFlightData(){
 
