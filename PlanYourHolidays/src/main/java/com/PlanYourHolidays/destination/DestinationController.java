@@ -1,6 +1,8 @@
 package com.PlanYourHolidays.destination;
 
+import com.PlanYourHolidays.gettingData.GettingBookings;
 import com.PlanYourHolidays.gettingData.GettingFlights;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,9 +42,27 @@ public class DestinationController {
         destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice);
 
     }
-    @GetMapping("/flightsData")
-    public ResponseEntity<?> callFlightsEndpoint() {
-        return ResponseEntity.ok(GettingFlights.getFlightData());
+    @GetMapping("/flightsData&{destinationId}&{flightTo}&{flightFrom}&{departureDate}&{returnDate}&{seats}")
+    public void callFlightsEndpoint(@PathVariable("destinationId") Long destinationId,
+                                    @PathVariable String flightTo,
+                                    @PathVariable String departureDate,
+                                    @PathVariable String flightFrom,
+                                    @PathVariable String returnDate,
+                                    @PathVariable int seats,
+                                    @RequestParam(required = false) String startingPoint,
+                                    @RequestParam(required = false) String destinationPoint,
+                                    @RequestParam(required = false) LocalDate dateOfStart,
+                                    @RequestParam(required = false) LocalDate dateOfFinish
+                                    ) throws JSONException {
+
+        float sleepPrice = 200;
+        float flightsPrice = (float) GettingFlights.getFlightData(flightTo, flightFrom, departureDate, returnDate, seats);
+        destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice);
+    }
+
+    @GetMapping("/hotelData")
+    public ResponseEntity<?> callHotelsEndpoint() {
+        return ResponseEntity.ok(GettingBookings.getHotelData());
     }
 
 }

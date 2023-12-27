@@ -31,6 +31,7 @@ public class DestinationService {
         if(destinationOptional.isPresent()){
             throw new IllegalStateException("id already exists in db");
         }
+        destinationRepository.save(destination);
         System.out.println(destination);
     }
 
