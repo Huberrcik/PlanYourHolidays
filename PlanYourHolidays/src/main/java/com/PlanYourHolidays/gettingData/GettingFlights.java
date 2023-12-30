@@ -55,7 +55,7 @@ public class GettingFlights {
 
     public static double extracter(String jsonResponse ) throws JSONException {
 
-        System.out.println(jsonResponse);
+        //System.out.println(jsonResponse);
 
         int startIndex = jsonResponse.indexOf("{");
         String jsonOnly = jsonResponse.substring(startIndex);

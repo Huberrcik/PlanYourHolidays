@@ -1,38 +1,69 @@
 package com.PlanYourHolidays.gettingData;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.*;
-import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static com.PlanYourHolidays.gettingData.GettingListOfHotels.getHotelList;
 import static com.PlanYourHolidays.gettingData.extractingDataFromEndpoint.getStringResponseEntity;
 
-
-/*
-
-Reference for this endpoint - https://developers.amadeus.com/self-service/category/hotels/api-doc/hotel-list/api-reference
-
- */
-@Service
-@Slf4j
 public class GettingBookings {
+    private static final String URL = "https://test.api.amadeus.com/v3/shopping/hotel-offers?hotelIds=";
+    private static final String adultsURL = "&adults=";
+    private static final String checkInDateURL = "&checkInDate=";
+    private static final String checkOutDateURL = "&checkOutDate=";
+    private static final String roomQuantityURL = "&roomQuantity=";
+    private static final String endpointURL = "&currency=PLN&paymentPolicy=NONE&includeClosed=false&bestRateOnly=true";
 
-    private static final String URL = "https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?";
-    private static final String cityCodeURL = "cityCode=";
-    private static final String radiusURL = "&radius=";
-    private static final String radiusUnitURL = "radiusUnit=KM";
-    private static final String ratingURL = "&ratings=";
-    private static final String hotelSourceURL = "&hotelSource=ALL";
-    public static ResponseEntity<String> getHotelData(){
+    public static double getHotelPrice(String destination, int radius, int hotelRating, int numberOfAdults, String checkInDate, String checkOutDate, int numberOfRooms) throws JSONException {
 
-        String cityCode = "KRK";
-        int radius = 50; //radius around airport that that will be searched
-        int hotelRating = 2;
-        String finalURL = URL + cityCodeURL + cityCode + radiusURL + radius + radiusUnitURL + radiusURL + ratingURL + hotelRating + hotelSourceURL;
+        List<String> hotelIds = getHotelList(destination,radius,hotelRating);
 
-        log.info("Sent request to: " + finalURL);
-        return getStringResponseEntity(finalURL);
+        String joinedString = String.join(", ", hotelIds);
+
+        String finalURL = URL + joinedString + adultsURL + numberOfAdults + checkInDateURL + checkInDate + checkOutDateURL + checkOutDate +
+                roomQuantityURL + numberOfRooms +endpointURL;
+
+        String jsonResponse = String.valueOf(getStringResponseEntity(finalURL));
+
+        int startIndex = jsonResponse.indexOf("{");
+        String jsonData = jsonResponse.substring(startIndex);
+
+        System.out.println(jsonData);
 
 
+        JSONObject data = new JSONObject(jsonData);
+        JSONArray dataArray = data.getJSONArray("data");
+        double[] totalValues = new double[dataArray.length()];
+        if (dataArray.length() == 0) {
+            System.out.println("There are no available rooms");
+        } else {
+
+            for (int i = 0; i < dataArray.length(); i++) {
+                JSONObject offer = dataArray.getJSONObject(i).getJSONArray("offers").getJSONObject(0);
+                String total = offer.getJSONObject("price").getString("total");
+                totalValues[i] = Double.parseDouble(total);
+            }
+
+            for (double value : totalValues) {
+                System.out.println("Total: " + value);
+            }
+        }
+
+        Arrays.sort(totalValues);
+        double lowestValue = totalValues[0];
+        System.out.println("Lowest value = " + lowestValue);
+
+
+
+
+        return lowestValue;
     }
-
 
 }

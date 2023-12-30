@@ -1,6 +1,7 @@
 package com.PlanYourHolidays.destination;
 
 import com.PlanYourHolidays.gettingData.GettingBookings;
+import com.PlanYourHolidays.gettingData.GettingListOfHotels;
 import com.PlanYourHolidays.gettingData.GettingFlights;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,27 +43,30 @@ public class DestinationController {
         destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice);
 
     }
-    @GetMapping("/flightsData&{destinationId}&{flightTo}&{flightFrom}&{departureDate}&{returnDate}&{seats}")
+    @GetMapping("/flightsData&{destinationId}&{flightTo}&{flightFrom}&{departureDate}&{returnDate}&{seats}&{radius}&{hotelRating}&{numberOfRooms}")
     public void callFlightsEndpoint(@PathVariable("destinationId") Long destinationId,
                                     @PathVariable String flightTo,
                                     @PathVariable String departureDate,
                                     @PathVariable String flightFrom,
                                     @PathVariable String returnDate,
                                     @PathVariable int seats,
+                                    @PathVariable int radius,
+                                    @PathVariable int hotelRating,
+                                    @PathVariable int numberOfRooms,
                                     @RequestParam(required = false) String startingPoint,
                                     @RequestParam(required = false) String destinationPoint,
                                     @RequestParam(required = false) LocalDate dateOfStart,
                                     @RequestParam(required = false) LocalDate dateOfFinish
                                     ) throws JSONException {
 
-        float sleepPrice = 200;
+        float sleepPrice = (float) GettingBookings.getHotelPrice(flightTo, radius, hotelRating, seats, departureDate, returnDate,numberOfRooms);
         float flightsPrice = (float) GettingFlights.getFlightData(flightTo, flightFrom, departureDate, returnDate, seats);
         destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice);
     }
 
-    @GetMapping("/hotelData")
-    public ResponseEntity<?> callHotelsEndpoint() {
-        return ResponseEntity.ok(GettingBookings.getHotelData());
-    }
+//    @GetMapping("/hotelData")
+//    public ResponseEntity<?> callHotelsEndpoint() {
+//        return ResponseEntity.ok(GettingListOfHotels.getHotelList());
+//    }
 
 }
