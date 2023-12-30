@@ -1,11 +1,9 @@
 package com.PlanYourHolidays.destination;
 
 import com.PlanYourHolidays.gettingData.GettingBookings;
-import com.PlanYourHolidays.gettingData.GettingListOfHotels;
 import com.PlanYourHolidays.gettingData.GettingFlights;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -63,10 +61,4 @@ public class DestinationController {
         float flightsPrice = (float) GettingFlights.getFlightData(flightTo, flightFrom, departureDate, returnDate, seats);
         destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice);
     }
-
-//    @GetMapping("/hotelData")
-//    public ResponseEntity<?> callHotelsEndpoint() {
-//        return ResponseEntity.ok(GettingListOfHotels.getHotelList());
-//    }
-
 }
