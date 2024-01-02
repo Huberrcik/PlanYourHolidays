@@ -38,8 +38,10 @@ public class GettingBookings {
         JSONObject data = new JSONObject(jsonData);
         JSONArray dataArray = data.getJSONArray("data");
         double[] totalValues = new double[dataArray.length()];
+        double lowestValue;
         if (dataArray.length() == 0) {
             System.out.println("There are no available rooms");
+            return 0;
         } else {
 
             for (int i = 0; i < dataArray.length(); i++) {
@@ -54,7 +56,7 @@ public class GettingBookings {
         }
 
         Arrays.sort(totalValues);
-        double lowestValue = totalValues[0];
+        lowestValue = totalValues[0];
         System.out.println("Lowest value = " + lowestValue);
 
 

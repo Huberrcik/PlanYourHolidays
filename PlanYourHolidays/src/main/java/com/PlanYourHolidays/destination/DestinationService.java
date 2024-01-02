@@ -51,7 +51,8 @@ public class DestinationService {
                                   LocalDate dateOfStart,
                                   LocalDate dateOfFinish,
                                   float flightsPrice,
-                                  float sleepPrice) {
+                                  float sleepPrice,
+                                  float bestTotalPrice) {
         Destination destination = destinationRepository.findDestinationById(destinationId).
                 orElseThrow(() -> new IllegalStateException(
                 "Destination with id " + destinationId + " does not exists"
@@ -80,6 +81,10 @@ public class DestinationService {
 
         if (sleepPrice != 0 && !Objects.equals(destination.getSleepPrice(), sleepPrice)){
             destination.setSleepPrice(sleepPrice);
+        }
+
+        if (bestTotalPrice != 0 && !Objects.equals(destination.getBestTotalPrice(), bestTotalPrice)){
+            destination.setBestTotalPrice(bestTotalPrice);
         }
 
 

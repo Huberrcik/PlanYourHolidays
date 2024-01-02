@@ -1,5 +1,7 @@
 package com.PlanYourHolidays.destination;
 
+import com.PlanYourHolidays.BestValueAlgorithm.BestFlightsValues;
+import com.PlanYourHolidays.BestValueAlgorithm.BestValue;
 import com.PlanYourHolidays.gettingData.GettingBookings;
 import com.PlanYourHolidays.gettingData.GettingFlights;
 import org.json.JSONException;
@@ -37,8 +39,9 @@ public class DestinationController {
                                   @RequestParam(required = false) LocalDate dateOfStart,
                                   @RequestParam(required = false) LocalDate dateOfFinish,
                                   @RequestParam(required = false) float flightsPrice,
-                                  @RequestParam(required = false) float sleepPrice) {
-        destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice);
+                                  @RequestParam(required = false) float sleepPrice,
+                                  @RequestParam(required = false) float bestTotalPrice) {
+        destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice, bestTotalPrice);
 
     }
     @GetMapping("/flightsData&{destinationId}&{flightTo}&{flightFrom}&{departureDate}&{returnDate}&{seats}&{radius}&{hotelRating}&{numberOfRooms}")
@@ -57,8 +60,9 @@ public class DestinationController {
                                     @RequestParam(required = false) LocalDate dateOfFinish
                                     ) throws JSONException {
 
-        float sleepPrice = (float) GettingBookings.getHotelPrice(flightTo, radius, hotelRating, seats, departureDate, returnDate,numberOfRooms);
+        float sleepPrice = (float) GettingBookings.getHotelPrice(flightTo, radius, hotelRating, seats, departureDate, returnDate, numberOfRooms);
         float flightsPrice = (float) GettingFlights.getFlightData(flightTo, flightFrom, departureDate, returnDate, seats);
-        destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice);
+        float bestTotalPrice = BestFlightsValues.flightDeal(flightTo,flightFrom,BestValue.algorithm(departureDate),BestValue.algorithm(returnDate),seats,radius,hotelRating,numberOfRooms);
+        destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice, bestTotalPrice);
     }
 }
