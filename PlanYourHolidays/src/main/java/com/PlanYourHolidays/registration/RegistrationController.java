@@ -4,6 +4,7 @@ import com.PlanYourHolidays.customer.Customer;
 import com.PlanYourHolidays.customer.CustomerDto;
 import com.PlanYourHolidays.customer.CustomerRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,10 @@ public class RegistrationController {
     private CustomerRepository customerRepository;
 
     @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
+    public String showRegistrationForm(Model model, HttpSession session) {
+        if (session.getAttribute("username") != null) {
+            return "redirect:/home";
+        }
         model.addAttribute("customer", new CustomerDto());
         return "registration";
     }
