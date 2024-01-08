@@ -13,22 +13,20 @@ public class CustomerConfig {
     CommandLineRunner customerCommandLineRunner(
             CustomerRepository repository) {
         return  args -> {
-            Customer jakub = new Customer(
-                    "Jakub",
-                    "jakub@gmail.com",
-                    23,
-                    "haslo"
-            );
-            Customer hubert = new Customer(
-                    "Hubert",
-                    "hubert@gmail.com",
-                    23,
-                    "password"
-            );
-
-            repository.saveAll(
-                    List.of(jakub, hubert)
-            );
+//            Customer jakub = new Customer(
+//                    "Jakub",
+//                    "jakub@gmail.com",
+//                    "haslo"
+//            );
+//            Customer hubert = new Customer(
+//                    "Hubert",
+//                    "hubert@gmail.com",
+//                    "password"
+//            );
+//
+//            repository.saveAll(
+//                    List.of(jakub, hubert)
+//            );
         };
     }
 }

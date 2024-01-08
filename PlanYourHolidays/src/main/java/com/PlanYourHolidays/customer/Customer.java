@@ -18,7 +18,6 @@ public class Customer {
     private Long id;
     private String name;
     private String email;
-    private Integer age;
     private String password;
 
     public Customer() {
@@ -27,22 +26,18 @@ public class Customer {
     public Customer(Long id,
                     String name,
                     String email,
-                    Integer age,
                     String password) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.age = age;
         this.password = password;
     }
 
     public Customer(String name,
                     String email,
-                    Integer age,
                     String password) {
         this.name = name;
         this.email = email;
-        this.age = age;
         this.password = password;
     }
 
@@ -70,14 +65,6 @@ public class Customer {
         this.email = email;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -92,7 +79,6 @@ public class Customer {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", age=" + age +
                 ", password='" + password + '\'' +
                 '}';
     }
