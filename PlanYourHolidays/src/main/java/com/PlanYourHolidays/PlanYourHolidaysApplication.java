@@ -17,12 +17,6 @@ public class PlanYourHolidaysApplication implements RepositoryRestConfigurer{
 		SpringApplication.run(PlanYourHolidaysApplication.class, args);
 	}
 
-	@Override
-	public void configureValidatingRepositoryEventListener(ValidatingRepositoryEventListener validatingListener) {
-		RepositoryRestConfigurer.super.configureValidatingRepositoryEventListener(validatingListener);
-		validatingListener.addValidator("beforeCreate", validator());
-		validatingListener.addValidator("beforeSave",validator());
-	}
 	@Bean
 	protected Validator validator() {
 		return new LocalValidatorFactoryBean();
