@@ -2,15 +2,16 @@ package com.PlanYourHolidays.destination;
 
 import com.PlanYourHolidays.BestValueAlgorithm.BestFlightsValues;
 import com.PlanYourHolidays.BestValueAlgorithm.BestValue;
-import com.PlanYourHolidays.gettingData.GettingBookings;
-import com.PlanYourHolidays.gettingData.GettingFlights;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*", allowCredentials = "true")
 @RequestMapping(path="api/v1/destination")
 public class DestinationController {
 
@@ -41,11 +42,11 @@ public class DestinationController {
                                   @RequestParam(required = false) float flightsPrice,
                                   @RequestParam(required = false) float sleepPrice,
                                   @RequestParam(required = false) float bestTotalPrice) {
-        destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice, bestTotalPrice);
+        destinationService.updteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice, bestTotalPrice);
 
     }
-    @GetMapping("/flightsData&{destinationId}&{flightTo}&{flightFrom}&{departureDate}&{returnDate}&{seats}&{radius}&{hotelRating}&{numberOfRooms}")
-    public void callFlightsEndpoint(@PathVariable("destinationId") Long destinationId,
+    @GetMapping("/flightsData&{flightTo}&{flightFrom}&{departureDate}&{returnDate}&{seats}&{radius}&{hotelRating}&{numberOfRooms}")
+    public String callFlightsEndpoint(
                                     @PathVariable String flightTo,
                                     @PathVariable String departureDate,
                                     @PathVariable String flightFrom,
@@ -53,16 +54,16 @@ public class DestinationController {
                                     @PathVariable int seats,
                                     @PathVariable int radius,
                                     @PathVariable int hotelRating,
-                                    @PathVariable int numberOfRooms,
-                                    @RequestParam(required = false) String startingPoint,
-                                    @RequestParam(required = false) String destinationPoint,
-                                    @RequestParam(required = false) LocalDate dateOfStart,
-                                    @RequestParam(required = false) LocalDate dateOfFinish
+                                    @PathVariable int numberOfRooms
                                     ) throws JSONException {
 
-        float sleepPrice = (float) GettingBookings.getHotelPrice(flightTo, radius, hotelRating, seats, departureDate, returnDate, numberOfRooms);
-        float flightsPrice = (float) GettingFlights.getFlightData(flightTo, flightFrom, departureDate, returnDate, seats);
-        float bestTotalPrice = BestFlightsValues.flightDeal(flightTo,flightFrom,BestValue.algorithm(departureDate),BestValue.algorithm(returnDate),seats,radius,hotelRating,numberOfRooms);
-        destinationService.upadteDestination(destinationId, startingPoint, destinationPoint, dateOfStart, dateOfFinish, flightsPrice, sleepPrice, bestTotalPrice);
+        Map<String, Object> result = BestFlightsValues.flightDeal(flightTo, flightFrom, BestValue.algorithm(departureDate), BestValue.algorithm(returnDate), seats, radius, hotelRating, numberOfRooms);
+        LocalDate bestDepartureDate = (LocalDate) result.get("bestDepartureDate");
+        LocalDate bestReturnDate = (LocalDate) result.get("bestReturnDate");
+        double bestTotalPrice = (double) BestFlightsValues.flightDeal(flightTo,flightFrom,BestValue.algorithm(departureDate),BestValue.algorithm(returnDate),seats,radius,hotelRating,numberOfRooms).get("bestTotalPrice");
+        Destination destination = new Destination(flightTo,flightFrom, bestDepartureDate, bestReturnDate, result.get("bestHotelPrice"), result.get("bestFlightPrice"), bestTotalPrice);
+        destinationService.addNewDestination(destination);
+
+        return destinationService.getJourneys().get(getJourneys().size() - 1).toString();
     }
 }

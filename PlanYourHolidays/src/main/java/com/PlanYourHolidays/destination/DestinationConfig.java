@@ -18,13 +18,19 @@ public class DestinationConfig {
                             "Krakow",
                             "Mallorca",
                             LocalDate.of(2023, Month.NOVEMBER,10),
-                            LocalDate.of(2023,Month.NOVEMBER,17));
+                            LocalDate.of(2023,Month.NOVEMBER,17),
+                            0.00,
+                            0.00,
+                            0.00);
 
             Destination destination2 = new Destination(
                             "Katowice",
                              "Madrid",
                              LocalDate.of(2024, Month.JANUARY,15),
-                             LocalDate.of(2024,Month.JANUARY,19));
+                             LocalDate.of(2024,Month.JANUARY,19),
+                    0.00,
+                    0.00,
+                    0.00);
 
                      repository.saveAll(
                              List.of(destination1, destination2)

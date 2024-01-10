@@ -45,7 +45,7 @@ public class DestinationService {
     }
 
     @Transactional
-    public void upadteDestination(Long destinationId,
+    public void updteDestination(Long destinationId,
                                   String startPoint,
                                   String destinationPoint,
                                   LocalDate dateOfStart,

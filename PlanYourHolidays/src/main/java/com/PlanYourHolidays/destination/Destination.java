@@ -26,9 +26,9 @@ public class Destination {
     private String destinationPoint;
     private LocalDate dateOfStart;
     private LocalDate dateOfFinish;
-    private float flightsPrice;
-    private float sleepPrice;
-    private float bestTotalPrice;
+    private double flightsPrice;
+    private double sleepPrice;
+    private double bestTotalPrice;
 
     @Override
     public String toString() {
@@ -68,10 +68,16 @@ public class Destination {
     public Destination(String startPoint,
                        String destinationPoint,
                        LocalDate dateOfStart,
-                       LocalDate dateOfFinish) {
+                       LocalDate dateOfFinish,
+                       Object flightsPrice,
+                       Object sleepPrice,
+                       Object bestTotalPrice) {
         this.startPoint = startPoint;
         this.destinationPoint = destinationPoint;
         this.dateOfStart = dateOfStart;
         this.dateOfFinish = dateOfFinish;
+        this.flightsPrice = (double) flightsPrice;
+        this.sleepPrice = (double) sleepPrice;
+        this.bestTotalPrice = (double) bestTotalPrice;
     }
 }
