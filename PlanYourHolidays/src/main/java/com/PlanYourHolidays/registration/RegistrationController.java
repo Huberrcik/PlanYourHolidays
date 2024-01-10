@@ -50,6 +50,7 @@ public class RegistrationController {
         return new ModelAndView("redirect:/login");
     }
 
+    // Konwersja z CustomerDto do Customer
 
 }
 

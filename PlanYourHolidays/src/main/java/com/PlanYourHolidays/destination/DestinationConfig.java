@@ -15,16 +15,22 @@ public class DestinationConfig {
     CommandLineRunner commandLineRunner(DestinationRepository repository){
         return args ->{
                     Destination destination1 = new Destination(
-                            "KRK",
-                            "PMI",
-                            LocalDate.of(2024, Month.FEBRUARY,10),
-                            LocalDate.of(2024,Month.FEBRUARY,17));
+                            "Krakow",
+                            "Mallorca",
+                            LocalDate.of(2023, Month.NOVEMBER,10),
+                            LocalDate.of(2023,Month.NOVEMBER,17),
+                            0.00,
+                            0.00,
+                            0.00);
 
             Destination destination2 = new Destination(
                             "Katowice",
                              "Madrid",
                              LocalDate.of(2024, Month.JANUARY,15),
-                             LocalDate.of(2024,Month.JANUARY,19));
+                             LocalDate.of(2024,Month.JANUARY,19),
+                    0.00,
+                    0.00,
+                    0.00);
 
                      repository.saveAll(
                              List.of(destination1, destination2)

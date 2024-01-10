@@ -32,7 +32,7 @@ public class LoginController {
         Customer customer = customerRepository.findByEmail(email);
 
         if (customer != null && customer.getPassword().equals(password)) {
-            session.setAttribute("username", customer.getEmail());
+            session.setAttribute("username", customer.getName());
             return "redirect:/home";
         } else {
             model.addAttribute("error", "Invalid email or password");
