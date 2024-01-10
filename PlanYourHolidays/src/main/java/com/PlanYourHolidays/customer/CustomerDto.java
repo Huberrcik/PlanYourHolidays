@@ -63,5 +63,10 @@ public class CustomerDto {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    // Konwersja z CustomerDto do Customer
+    public Customer convertToCustomer() {
+        return new Customer(this.getName(), this.getEmail(), this.getPassword());
+    }
 }
 

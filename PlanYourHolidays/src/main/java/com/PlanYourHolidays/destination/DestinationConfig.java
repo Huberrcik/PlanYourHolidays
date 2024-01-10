@@ -15,10 +15,10 @@ public class DestinationConfig {
     CommandLineRunner commandLineRunner(DestinationRepository repository){
         return args ->{
                     Destination destination1 = new Destination(
-                            "Krakow",
-                            "Mallorca",
-                            LocalDate.of(2023, Month.NOVEMBER,10),
-                            LocalDate.of(2023,Month.NOVEMBER,17));
+                            "KRK",
+                            "PMI",
+                            LocalDate.of(2024, Month.FEBRUARY,10),
+                            LocalDate.of(2024,Month.FEBRUARY,17));
 
             Destination destination2 = new Destination(
                             "Katowice",

@@ -45,6 +45,8 @@ public class DestinationController {
 
     }
     @GetMapping("/flightsData&{destinationId}&{flightTo}&{flightFrom}&{departureDate}&{returnDate}&{seats}&{radius}&{hotelRating}&{numberOfRooms}")
+    //  /flightsData&{1}&{PMI}&{KRK}&{2024-02-10}&{2024-02-17}&{1}&{50}&{4}&{1}
+    // /flightsData&{1}&{1}&{50}&{4}&{1}
     public void callFlightsEndpoint(@PathVariable("destinationId") Long destinationId,
                                     @PathVariable String flightTo,
                                     @PathVariable String departureDate,
