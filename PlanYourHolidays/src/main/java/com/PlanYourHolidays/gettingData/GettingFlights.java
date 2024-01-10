@@ -75,8 +75,13 @@ public class GettingFlights {
             totalValues.add(Double.parseDouble(total));
         }
 
+        if (totalValues.isEmpty()) {
+            System.out.println("No flight total values found.");
+            return 0;
+        }
+
         double lowestValue = Collections.min(totalValues);
-        System.out.println("Lowest total value: " + lowestValue);
+        System.out.println("Lowest flight total value: " + lowestValue);
 
         return lowestValue;
     }
