@@ -68,6 +68,16 @@ public class Destination {
     public Destination(String startPoint,
                        String destinationPoint,
                        LocalDate dateOfStart,
+                       LocalDate dateOfFinish) {
+        this.startPoint = startPoint;
+        this.destinationPoint = destinationPoint;
+        this.dateOfStart = dateOfStart;
+        this.dateOfFinish = dateOfFinish;
+    }
+
+    public Destination(String startPoint,
+                       String destinationPoint,
+                       LocalDate dateOfStart,
                        LocalDate dateOfFinish,
                        Object flightsPrice,
                        Object sleepPrice,

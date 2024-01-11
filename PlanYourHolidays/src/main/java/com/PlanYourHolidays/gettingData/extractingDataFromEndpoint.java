@@ -2,6 +2,8 @@ package com.PlanYourHolidays.gettingData;
 
 import java.util.logging.Logger;
 import org.springframework.http.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,10 +26,19 @@ public class extractingDataFromEndpoint {
 
             //System.out.println(response.getBody());
 
-            return restTemplate.exchange(finalURL, HttpMethod.GET, request, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(finalURL, HttpMethod.GET, request, String.class);
 
+            if (response.getStatusCode().is4xxClientError() || response.getStatusCode().is5xxServerError()) {
+                return new ResponseEntity<>("0", response.getHeaders(), HttpStatus.OK);
+            }
+
+            return response;
+
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+            logger.info(("Received " + e.getStatusCode() + " error while getting value from API: " + e.getStatusText()));
+            return new ResponseEntity<>("0", HttpStatus.OK);
         } catch (Exception e) {
-            logger.info(("Sth went wrong while getting value from API: " + e));
+            logger.info(("Something went wrong while getting value from API: " + e));
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     "Exception while calling external API",

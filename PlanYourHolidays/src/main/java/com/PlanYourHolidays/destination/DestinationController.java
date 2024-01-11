@@ -61,7 +61,7 @@ public class DestinationController {
         LocalDate bestDepartureDate = (LocalDate) result.get("bestDepartureDate");
         LocalDate bestReturnDate = (LocalDate) result.get("bestReturnDate");
         double bestTotalPrice = (double) BestFlightsValues.flightDeal(flightTo,flightFrom,BestValue.algorithm(departureDate),BestValue.algorithm(returnDate),seats,radius,hotelRating,numberOfRooms).get("bestTotalPrice");
-        Destination destination = new Destination(flightTo,flightFrom, bestDepartureDate, bestReturnDate, result.get("bestHotelPrice"), result.get("bestFlightPrice"), bestTotalPrice);
+        Destination destination = new Destination(flightFrom, flightTo, bestDepartureDate, bestReturnDate, result.get("bestFlightPrice"), result.get("bestHotelPrice"), bestTotalPrice);
         destinationService.addNewDestination(destination);
 
         return destinationService.getJourneys().get(getJourneys().size() - 1).toString();

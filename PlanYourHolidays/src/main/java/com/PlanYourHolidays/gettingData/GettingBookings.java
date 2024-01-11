@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static com.PlanYourHolidays.gettingData.GettingListOfHotels.getHotelList;
 import static com.PlanYourHolidays.gettingData.extractingDataFromEndpoint.getStringResponseEntity;
@@ -28,6 +29,10 @@ public class GettingBookings {
                 roomQuantityURL + numberOfRooms +endpointURL;
 
         String jsonResponse = String.valueOf(getStringResponseEntity(finalURL));
+        System.out.println(jsonResponse);
+        if(Objects.equals(jsonResponse, "<200 OK OK,0,[]>")){
+            return 0;
+        }
 
         int startIndex = jsonResponse.indexOf("{");
         String jsonData = jsonResponse.substring(startIndex);

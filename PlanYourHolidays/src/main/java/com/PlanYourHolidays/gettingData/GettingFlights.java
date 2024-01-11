@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static com.PlanYourHolidays.gettingData.extractingDataFromEndpoint.getStringResponseEntity;
 
@@ -49,6 +50,11 @@ public class GettingFlights {
                 + maxPriceURL + maxPrice + maxResultsURL + maxResults;
 
         String result = String.valueOf(getStringResponseEntity(finalURL));
+
+        System.out.println(result);
+        if(Objects.equals(result, "<200 OK OK,0,[]>")){
+            return 0;
+        }
 
         return extracter(result);
     }
