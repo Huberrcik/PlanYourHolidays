@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e48ea32d-52cb-4a95-821e-e6a939bc3786" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/RegistrationRestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/customer/CustomerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/customer/CustomerDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/destination/DestinationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/destination/DestinationConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/destination/DestinationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/destination/DestinationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/RegistrationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/PlanYourHolidays/destination/DestinationConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/PlanYourHolidays/destination/DestinationConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/RegistrationRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/RegistrationRestController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,5 +75,16 @@
       <updated>1704733171849</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

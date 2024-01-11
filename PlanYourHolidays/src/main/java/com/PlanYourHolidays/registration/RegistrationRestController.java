@@ -23,47 +23,53 @@ public class RegistrationRestController {
     private CustomerRepository customerRepository;
 
     // Rejestracja nowego użytkownika
-    // Zwraca String, który informuje o wyniku operacji
+    // Zwraca liczbę (int), która informuje o wyniku operacji
+    // 0 - Użytkownik pomyślnie zarejestrowany w bazie danych
+    // 1 - Użytkownik o podanym adresie email juz istnieje
+    // 2 - Walidacja danych nie przeszła pomyślnie (hasła nie są takie same lub format maila jest zły)
     @PostMapping("/register")
-    public String registerRestController(@ModelAttribute("customer") @Valid CustomerDto customerDto,
+    public int registerRestController(@ModelAttribute("customer") @Valid CustomerDto customerDto,
                                       BindingResult result) {
 
         // Walidacja się nie powiodła, należy obsłużyć błędy
         if (result.hasErrors()) {
-            return("Walidacja danych nie powiodła się.");
+            return 2;
         }
 
         // Użytkownik już istnieje w bazie danych
         if (customerRepository.findByEmail(customerDto.getEmail()) != null){
-            return("Uzytkownik o podanym mailu już istnieje.");
+            return 1;
         }
 
         // Walidacja przeszła pomyślnie, można zapisać użytkownika
         Customer customer = customerDto.convertToCustomer();
         customerRepository.save(customer);
-        return("Użytkownik został pomyślnie zarejestrowany.");
+        return 0;
     }
 
     // Logowanie użytkownika
-    // Zwraca String, który informuje o wyniku operacji
+    // Zwraca liczbę (int), która informuje o wyniku operacji
+    // 0 - Użytkownik zalogowany pomyślnie
+    // 1 - Błąd, mail nie istnieje w bazie lub hasło nie jest poprawne
     @PostMapping("/login")
-    public String loginRestController(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model) {
+    public int loginRestController(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model) {
         Customer customer = customerRepository.findByEmail(email);
 
         if (customer != null && customer.getPassword().equals(password)) {
             session.setAttribute("username", customer.getEmail());
-            return "Pomyślnie zalogowano.";
+            return 0;
         } else {
             model.addAttribute("error", "Invalid email or password");
-            return "Błędne dane do logowania.";
+            return 1;
         }
     }
 
     // Wylogowywanie użytkownika
+    // 0 - Wylogowano pomyślnie
     @GetMapping("/logout")
-    public String logoutRestController(HttpSession session) {
+    public int logoutRestController(HttpSession session) {
         session.removeAttribute("username");
-        return "Pomyślnie wylogowano.";
+        return 0;
     }
 
     // Sprawdzenie aktywności sesji
