@@ -5,13 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e48ea32d-52cb-4a95-821e-e6a939bc3786" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/RegistrationRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/customer/CustomerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/customer/CustomerDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/destination/DestinationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/destination/DestinationConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/destination/DestinationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/destination/DestinationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/RegistrationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/PlanYourHolidays/destination/DestinationConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/PlanYourHolidays/destination/DestinationConfig.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />

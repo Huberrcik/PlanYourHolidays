@@ -63,5 +63,9 @@ public class CustomerDto {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Customer convertToCustomer() {
+        return new Customer(this.getName(), this.getEmail(), this.getPassword());
+    }
 }
 

@@ -40,7 +40,7 @@ public class RegistrationController {
         }
 
         // Użytkownik już istnieje w bazie danych
-        Customer customer = convertToCustomer(customerDto);
+        Customer customer = customerDto.convertToCustomer();
         if (customerRepository.findByEmail(customer.getEmail()) != null){
             return new ModelAndView("registration");
         }
@@ -51,8 +51,6 @@ public class RegistrationController {
     }
 
     // Konwersja z CustomerDto do Customer
-    private Customer convertToCustomer(CustomerDto customerDto) {
-        return new Customer(customerDto.getName(), customerDto.getEmail(), customerDto.getPassword());
-    }
+
 }
 
