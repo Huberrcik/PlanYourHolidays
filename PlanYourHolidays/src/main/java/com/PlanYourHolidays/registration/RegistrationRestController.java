@@ -3,7 +3,6 @@ package com.PlanYourHolidays.registration;
 import com.PlanYourHolidays.customer.Customer;
 import com.PlanYourHolidays.customer.CustomerDto;
 import com.PlanYourHolidays.customer.CustomerRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+import java.net.URI;
 
 @RestController
 @RequestMapping(path="customer")
@@ -52,31 +54,44 @@ public class RegistrationRestController {
     // 0 - Użytkownik zalogowany pomyślnie
     // 1 - Błąd, mail nie istnieje w bazie lub hasło nie jest poprawne
     @PostMapping("/login")
-    public int loginRestController(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model) {
+    public ResponseEntity<Object> loginRestController(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, Model model) {
         Customer customer = customerRepository.findByEmail(email);
 
         if (customer != null && customer.getPassword().equals(password)) {
             session.setAttribute("username", customer.getEmail());
-            return 0;
+            // Przekierowanie na wybrany adres (np. /home)
+            URI location = URI.create("http://localhost:3000/user");
+            HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(location);
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
         } else {
             model.addAttribute("error", "Invalid email or password");
-            return 1;
+            URI location = URI.create("http://localhost:3000/log-in");
+            HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(location);
+            return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
         }
     }
 
     // Wylogowywanie użytkownika
     // 0 - Wylogowano pomyślnie
+
     @GetMapping("/logout")
-    public int logoutRestController(HttpSession session) {
+    public ModelAndView logoutRestController(HttpSession session) {
         session.removeAttribute("username");
-        return 0;
+        return new ModelAndView("redirect:http://localhost:3000");
     }
 
     // Sprawdzenie aktywności sesji
     // Zwraca True jeśli sesja jest aktywna, oraz False jeśli jest nieaktywna
     @GetMapping("/session")
-    public boolean sessionRestController(HttpSession session) {
-        return(session.getAttribute("username") != null);
+    public String sessionRestController(HttpSession session) {
+
+        if(session.getAttribute("username") != null){
+            return "1";
+        }else {
+            return "0";
+        }
     }
 
     // Pobranie nazwy zalogowanego użytkownika
