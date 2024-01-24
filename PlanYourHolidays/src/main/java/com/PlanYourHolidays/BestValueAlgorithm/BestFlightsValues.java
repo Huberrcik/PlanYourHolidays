@@ -20,8 +20,12 @@ public class BestFlightsValues {
                     Object> flightDeal(String flightTo, String flightFrom, List<LocalDate> departureDates, List<LocalDate> returnDates, int seats, int radius, int hotelRating, int rooms) throws JSONException {
         List<Double> flightPrices = new ArrayList<>();
         List<Double> hotelPrices = new ArrayList<>();
+        List<String> flightCode = new ArrayList<>();
+        List<String> hotelName = new ArrayList<>();
         Double bestFlightPrice = null;
         Double bestHotelPrice = null;
+        String bestFlightCode = null;
+        String bestHotelName = null;
 
         for(int i = 0;i<departureDates.size();i++){
             flightPrices.add(GettingFlights.getFlightData(flightTo,
@@ -29,7 +33,19 @@ public class BestFlightsValues {
                     String.valueOf(departureDates.get(i)),
                     String.valueOf(returnDates.get(i)),
                     seats));
+            flightCode.add(GettingFlights.getBestFlightCode(flightTo,
+                    flightFrom ,
+                    String.valueOf(departureDates.get(i)),
+                    String.valueOf(returnDates.get(i)),
+                    seats));
             hotelPrices.add(GettingBookings.getHotelPrice(flightTo,
+                    radius ,
+                    hotelRating,
+                    seats,
+                    String.valueOf(departureDates.get(i)),
+                    String.valueOf(returnDates.get(i)),
+                    rooms));
+            hotelName.add(GettingBookings.getBestHotelName(flightTo,
                     radius ,
                     hotelRating,
                     seats,
@@ -52,7 +68,9 @@ public class BestFlightsValues {
                         if (diffInDays >= 3 && diffInDays <= 14 && totalPrice < bestTotalPrice) {
                             bestTotalPrice = totalPrice;
                             bestFlightPrice = flightPrices.get(i);
+                            bestFlightCode = flightCode.get(i);
                             bestHotelPrice = hotelPrices.get(j);
+                            bestHotelName = hotelName.get(j);
                             bestDepartureDates.clear();
                             bestReturnDates.clear();
                             bestDepartureDates.add(departureDates.get(i));
@@ -73,14 +91,18 @@ public class BestFlightsValues {
             resultMap.put("bestReturnDate", bestReturnDates.get(0));
             resultMap.put("bestTotalPrice", bestTotalPrice);
             resultMap.put("bestFlightPrice", bestFlightPrice);
+            resultMap.put("flightCode",bestFlightCode);
             resultMap.put("bestHotelPrice", bestHotelPrice);
+            resultMap.put("hotelName", bestHotelName);
         } else {
             log.info("Could not find suitable prices");
             resultMap.put("bestDepartureDate", null);
             resultMap.put("bestReturnDate", null);
             resultMap.put("bestTotalPrice", 0.0);
             resultMap.put("bestFlightPrice", 0.0);
+            resultMap.put("flightCode",null);
             resultMap.put("bestHotelPrice", 0.0);
+            resultMap.put("hotelName", null);
         }
 
         return resultMap;

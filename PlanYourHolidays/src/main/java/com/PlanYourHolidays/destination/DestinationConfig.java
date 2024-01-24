@@ -20,7 +20,9 @@ public class DestinationConfig {
                             LocalDate.of(2023, Month.NOVEMBER,10),
                             LocalDate.of(2023,Month.NOVEMBER,17),
                             0.00,
+                            "ABC 123 11",
                             0.00,
+                            "hello1",
                             0.00);
 
             Destination destination2 = new Destination(
@@ -29,7 +31,9 @@ public class DestinationConfig {
                              LocalDate.of(2024, Month.JANUARY,15),
                              LocalDate.of(2024,Month.JANUARY,19),
                     0.00,
+                    "CDE 456 22",
                     0.00,
+                    "hello2",
                     0.00);
 
                      repository.saveAll(

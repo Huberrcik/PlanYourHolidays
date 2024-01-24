@@ -27,7 +27,9 @@ public class Destination {
     private LocalDate dateOfStart;
     private LocalDate dateOfFinish;
     private double flightsPrice;
+    private String flightCode;
     private double sleepPrice;
+    private String hotelName;
     private double bestTotalPrice;
 
     @Override
@@ -39,7 +41,9 @@ public class Destination {
                 ", dateOfStart=" + dateOfStart +
                 ", dateOfFinish=" + dateOfFinish +
                 ", flightsPrice=" + flightsPrice +
+                ", flightCode='" + flightCode + '\'' +
                 ", sleepPrice=" + sleepPrice +
+                ", hotelName='" + hotelName + '\'' +
                 ", bestTotalPrice=" + bestTotalPrice +
                 '}';
     }
@@ -80,14 +84,18 @@ public class Destination {
                        LocalDate dateOfStart,
                        LocalDate dateOfFinish,
                        Object flightsPrice,
+                       String flightCode,
                        Object sleepPrice,
+                       String hotelName,
                        Object bestTotalPrice) {
         this.startPoint = startPoint;
         this.destinationPoint = destinationPoint;
         this.dateOfStart = dateOfStart;
         this.dateOfFinish = dateOfFinish;
         this.flightsPrice = (double) flightsPrice;
+        this.flightCode = flightCode;
         this.sleepPrice = (double) sleepPrice;
+        this.hotelName = hotelName;
         this.bestTotalPrice = (double) bestTotalPrice;
     }
 }

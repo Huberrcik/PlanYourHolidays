@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.PlanYourHolidays.gettingData.extractingDataFromEndpoint.getStringResponseEntity;
 
@@ -31,6 +32,9 @@ public class GettingListOfHotels {
         String finalURL = URL + cityCodeURL + cityCode + radiusURL + radius + radiusUnitURL + radiusURL + ratingURL + hotelRating + hotelSourceURL;
 
         String jsonResponse = String.valueOf(getStringResponseEntity(finalURL));
+        if (Objects.equals(jsonResponse, "<200 OK OK,0,[]>")) {
+            return null;
+        }
 
         int startIndex = jsonResponse.indexOf("{");
         String jsonOnly = jsonResponse.substring(startIndex);
