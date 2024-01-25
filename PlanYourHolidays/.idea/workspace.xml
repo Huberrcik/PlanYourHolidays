@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e48ea32d-52cb-4a95-821e-e6a939bc3786" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/RegistrationRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/registration/RegistrationRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/gettingData/Authorization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/PlanYourHolidays/gettingData/Authorization.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +43,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/48534&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>

@@ -16,8 +16,8 @@ import java.util.Base64;
 
 public class Authorization {
     private static final String authURL = "https://test.api.amadeus.com/v1/security/oauth2/token";
-    private static final String client_id = "C9afyYPRGXTrlBpp0BtzvlDNq8RAuj87";
-    private static final String client_secret = "cK8ic0z4woJAPcUU";
+    private static final String client_id = "pNpJbNaGcWkh6FHWjv7GBFARLSoTAugr";
+    private static final String client_secret = "QmaCXkBiwiPQfDOA";
 
     public static String getAuth() throws JsonProcessingException {
 
